@@ -25,6 +25,7 @@ do
   * ) echo " not recognized Option ";;
   esac
 done
+VAR="RR"
 #------------------------------------------------------------------------------
 # date/time manipulations
 YYYYbeg=${DATESTART:0:4}
@@ -39,11 +40,6 @@ SECbeg=`date +%s -d "$YYYYbeg-$MMbeg-$DDbeg $HHbeg:00:00"`
 SECend=`date +%s -d "$YYYYend-$MMend-$DDend $HHend:00:00"`
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
-if [ "$VAR"=="RR" ]; then
-  script="/home/senorge2/projects/POSEIDON/poseidon.R"
-else
-  script="/home/senorge2/projects/TITAN/titan.R"
-fi
 SECcur=$SECbeg
 echo `date +%Y-%m-%d" "%H:%M`
 while (( "$SECcur" <= "$SECend" )) 
@@ -54,16 +50,14 @@ do
   DD=${DATEcur:8:2}
   echo "============================================================================="
   echo "Processing date ="$DATEcur
+  script="/home/senorge2/projects/POSEIDON/poseidon.R"
   dir="/lustre/storeB/project/metkl/senorge2/case/case_20180112"
   diro="/lustre/storeB/project/metkl/senorge2/case/case_20180112/aux/$VAR"_date_dqc/"$YYYY$MM"
   ffi="$dir/$VAR"_date/"$YYYY$MM/case_$VAR"_date_"$YYYY$MM$DD.txt"
   ffo="$diro/case_$VAR"_date_"$YYYY$MM$DD.txt"
   mkdir -p $diro
-  if [ "$VAR"=="RR" ]; then
-    $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill  --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v --rr.isodry 0.1 --rr.isowet 0.1 --proj4to "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --proj4dem "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" 
-  else
-    $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill --laf.sct --laf.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_laf_topdown.nc --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v
-  fi
+#  $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill  --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v --debug --debug.dir /disk1/scratch/RR --rr.isodry 0.1 --rr.isowet 0.1 --proj4to "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --proj4dem "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" 
+  $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill  --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v --rr.isodry 0.1 --rr.isowet 0.1 --proj4to "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --proj4dem "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" 
   # next timestep
   SECcur=$(( SECcur+3600*24 ))
 done
