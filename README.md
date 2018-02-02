@@ -1,6 +1,7 @@
 # CASE
 Climate Archive of in-situ observations for Spatial intErpolation, software used to build up the archive.
 
+Detailed description in the [wiki](https://github.com/metno/CASE/wiki).
 
 Copyright and license
 ---------------------
