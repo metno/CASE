@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -N caseRRdqc 
 #$ -S /bin/bash
-#$ -l h_rt=240:00:00
+#$ -l h_rt=72:00:00
 #$ -l h_vmem=3G
 #$ -pe mpi 1
 #$ -q ded-parallelx.q
@@ -60,7 +60,7 @@ do
   ffo="$diro/case_$VAR"_date_"$YYYY$MM$DD.txt"
   mkdir -p $diro
   if [ "$VAR"=="RR" ]; then
-    $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill  --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v --rr.isodry 0.1 --rr.isowet 0.1 --proj4to "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --proj4dem "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" 
+    $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill  --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v --rr.isodry 0.1 --rr.isowet 0.1 --proj4to "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --proj4dem "+proj=lcc +lat_0=63 +lon_0=15 +lat_1=63 +lat_2=63 +no_defs +R=6.371e+06" --tmax.clim 500 500 500 500 500 500 500 500 500 500 500 500 --dr.sct 25000 --nbg.sct 3
   else
     $script $ffi $ffo --spatconv --month.clim $MM --varname.lat lat_dec --varname.lon lon_dec --varname.elev z --varname.value value --i.buddy 3 --separator , --dr.isol 250000 --n.isol 2 --grid.sct 5 5 --i.sct 3 --n.sct 10 --dem --dem.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_topo_topdown.nc --dem.fill --laf.sct --laf.file /lustre/storeB/project/metkl/klinogrid/geoinfo/meps_gmted2010_1km_laf_topdown.nc --varname.opt staid metnostaid souid cn etrs_laea_x etrs_laea_y utm33_x utm33_y date qcode -v
   fi
