@@ -271,14 +271,14 @@ for (e in 1:nEl) {
 #------------------------------------------------------------------------------
 # save output 
 dirout<-file.path(argv$dirout,
-         replaceDate(argv$bdirout,date.str=argv$date_start,format=ford))
+         replaceDate(argv$bdirout,date.str=argv$date_stop,format=ford))
 dir.create(path=dirout,
            showWarnings=F,
            recursive=T)
 ffout<-file.path(dirout,
       paste(argv$bfin,
             "pp_",
-            ifelse(nchar(argv$date_start)==13,tseq$yyyymmddhh[t],tseq$yyyymmdd[t]),
+            ifelse(nchar(argv$date_stop)==13,tseq$yyyymmddhh[t],tseq$yyyymmdd[t]),
             ".txt",sep=""))
 writeFile()
 print(paste("written file",ffout))

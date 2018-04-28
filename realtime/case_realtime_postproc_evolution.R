@@ -74,6 +74,10 @@ p <- add_argument(p, "bfin",
      help="basename for the input file (e.g., ''kdvh_Norway_nowmo_met_'')",
                   type="character")
 #
+p <- add_argument(p, "--date_out",
+                  help="date (formats: either YYYY-MM-DD or YYYY-MM-DDTHH)",
+                  type="character",
+                  default=NULL)
 p <- add_argument(p, "--dirout",
                   help="path for the output files",
                   type="character",
@@ -186,6 +190,7 @@ if ( argv$date_start==argv$date_stop &
      is.na(argv$n_prev) & is.na(argv$n_succ)) 
   boom("when date_start = date_stop, n_prev and/or n_succ must be provided")
 if (argv$bfin=="none") argv$bfin<-""
+if (is.na(argv$date_out)) argv$date_out<-argv$date_stop
 #
 nel_out<-length(argv$elcode_out)
 if (length(argv$elcode_out)!=length(argv$elcode_link)) 
@@ -422,16 +427,17 @@ for (eo in 1:nel_out) {
 rm(bigar,bigar_less_gaps)
 #
 #------------------------------------------------------------------------------
-# save output 
+# save output
+ford_out<-ifelse(nchar(argv$date_out)==13,"%Y-%m-%dT%H","%Y-%m-%d")
 dirout<-file.path(argv$dirout,
-         replaceDate(argv$bdirout,date.str=argv$date_start,format=ford))
+         replaceDate(argv$bdirout,date.str=argv$date_out,format=ford_out))
 dir.create(path=dirout,
            showWarnings=F,
            recursive=T)
 if (is.na(argv$bfout)) argv$bfout<-paste0(argv$bfin,"pp_")
 ffout<-file.path(dirout,
       paste(argv$bfout,
-            ifelse(nchar(argv$date_start)==13,tseq$yyyymmddhh[t],tseq$yyyymmdd[t]),
+            ifelse(nchar(argv$date_out)==13,tseq$yyyymmddhh[t],tseq$yyyymmdd[t]),
             ".txt",sep=""))
 writeFile()
 print(paste("written file",ffout))
