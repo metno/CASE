@@ -1,0 +1,2 @@
+./case_ecad_archive_by_date.R 1957-01-01 2021-05-19 --ff_sources /home/cristianl/data/ECA/TG/sources.txt --country NO --dir_in /home/cristianl/data/ECA/TG --ffin_pref TG_SOUID --coeff 0.1 --dir_out out --ffout_pref ecad_Norway
+
